@@ -1,2 +1,2 @@
-# Phase-3-Group-Project
-Phase-3-Group-Project
+# phase-3-react-project
+Phase-3-Group-Project => react portion
