@@ -3,6 +3,8 @@ import './App.css';
 import React from "react";
 import Header from "./components/Header"
 import FridgeContainer from './components/FridgeContainer';
+import ViewContainer from './components/ViewContainer';
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
       </div>
       <div>
         <FridgeContainer />
+        <ViewContainer />
       </div>
     </div>
     
