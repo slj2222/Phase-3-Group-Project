@@ -6,7 +6,7 @@ function FridgeCard({fridge}) {
     const mapFridgeFoods = fridge.foods.map(food => {
         return (
             <li>
-                <FoodItem food={food}/>
+                <FoodItem key={food.id} food={food}/>
             </li>
         )
     })
