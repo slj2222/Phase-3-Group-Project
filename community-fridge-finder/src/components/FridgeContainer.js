@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FridgeCard from "./FridgeCard";
 import ViewContainer from './ViewContainer'
 
-function FridgeContainer() {
+function FridgeContainer({handleClick}) {
 
     const [fridges, setFridges] = useState([])
 
@@ -15,7 +15,7 @@ function FridgeContainer() {
       console.log(fridges)
       
       const mapFridges = fridges.map(fridge => {
-          return <FridgeCard key={fridge.id} fridge={fridge}/>
+          return <FridgeCard key={fridge.id} fridge={fridge} handleClick={handleClick}/>
       })
       
 
