@@ -14,7 +14,7 @@ function FridgeCard({fridge}) {
     return (
         <div>
             <div>{fridge.location}</div>
-            <Link to={`fridges/${fridge.id}`}>
+            <Link to={`/fridges/${fridge.id}`}>
                 see more!
             </Link>
             <ul>List of Food

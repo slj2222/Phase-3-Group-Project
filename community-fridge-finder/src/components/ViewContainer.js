@@ -1,5 +1,8 @@
 import React from "react";
-import { Route, Switch, Link, useParams } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
+import FridgeDetail from './FridgeDetail';
+import NewFridgeForm from './NewFridgeForm';
+import EditFridgeForm from './EditFridgeForm';
 
 function ViewContainer() {
     const params = useParams();
@@ -10,8 +13,14 @@ function ViewContainer() {
                 <Route exact path="/">
                     Details
                 </Route>
+                <Route exact path="/fridges/new">
+                    <NewFridgeForm />
+                </Route>
+                <Route exact path="/fridges/:id/edit">
+                    <EditFridgeForm />
+                </Route>
                 <Route exact path="/fridges/:id">
-                    Detail of fridge with Id here
+                    <FridgeDetail />
                 </Route>
             </Switch>
             <button>NEW</button>
