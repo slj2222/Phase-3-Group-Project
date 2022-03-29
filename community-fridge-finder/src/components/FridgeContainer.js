@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FridgeCard from "./FridgeCard";
+import ViewContainer from './ViewContainer'
 
 function FridgeContainer() {
 
