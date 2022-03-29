@@ -1,25 +1,22 @@
 import React from "react";
-import FoodItem from "./FoodItem";
 import { Link } from 'react-router-dom';
-function FridgeCard({fridge}) {
-
-    const mapFridgeFoods = fridge.foods.map(food => {
-        return (
-            <li>
-                <FoodItem key={food.id} food={food}/>
-            </li>
-        )
-    })
+function FridgeCard({fridge, handleClick}) {
 
     return (
         <div>
             <div>{fridge.location}</div>
-            <Link to={`/fridges/${fridge.id}`}>
+            <Link 
+                to={`/fridges/${fridge.id}`}
+                onClick={() =>handleClick(fridge)}
+            >
                 see more!
             </Link>
-            <ul>List of Food
-                {mapFridgeFoods}
-            </ul>
+            <Link
+                to={`/fridges/${fridge.id}/edit`}
+            >
+                EDIT
+            </Link>
+
         </div>
         
     )
