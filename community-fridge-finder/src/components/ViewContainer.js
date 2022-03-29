@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, useParams } from "react-router-dom";
+import { Route, Switch, useParams, Link } from "react-router-dom";
 import FridgeDetail from './FridgeDetail';
 import NewFridgeForm from './NewFridgeForm';
 import EditFridgeForm from './EditFridgeForm';
@@ -23,10 +23,11 @@ function ViewContainer() {
                     <FridgeDetail />
                 </Route>
             </Switch>
-            <button>NEW</button>
-            <button>EDIT</button>
-            
-         
+            <button>
+                <Link to="/fridges/new">
+                    NEW    
+                </Link>
+            </button>
         </div>
     ) 
 }
