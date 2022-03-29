@@ -14,7 +14,7 @@ function FridgeContainer() {
       console.log(fridges)
       
       const mapFridges = fridges.map(fridge => {
-          return <FridgeCard fridge={fridge}/>
+          return <FridgeCard key={fridge.id} fridge={fridge}/>
       })
       
 
