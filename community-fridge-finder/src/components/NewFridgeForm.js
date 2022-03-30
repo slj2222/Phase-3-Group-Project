@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export default function NewFridgeForm() {
+export default function NewFridgeForm({ submitNew }) {
+
+  const [value, setValue] = useState('')
+  console.log(value)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    submitNew(value)
+  }
+
+
   return (
     <div>
-        <form>
-            <label for="location">Fridge Location:</label>
-            <input type="text" id="location" name="location" />
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="location">Fridge Location: </label>
+            <input onChange={(e) => setValue(e.target.value)} type="text" id="location" name="location" />
+            <input type="submit"/>
         </form>
     </div>
   )

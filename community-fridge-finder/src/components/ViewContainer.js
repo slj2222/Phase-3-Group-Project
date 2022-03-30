@@ -4,9 +4,13 @@ import FridgeDetail from './FridgeDetail';
 import NewFridgeForm from './NewFridgeForm';
 import EditFridgeForm from './EditFridgeForm';
 
-function ViewContainer({selectedFridge}) {
+function ViewContainer({selectedFridge, submitNew }) {
     const params = useParams();
     console.log(params)
+
+    
+
+
     return (
         <div>
             <Switch>
@@ -14,7 +18,7 @@ function ViewContainer({selectedFridge}) {
                     Details
                 </Route>
                 <Route exact path="/fridges/new">
-                    <NewFridgeForm />
+                    <NewFridgeForm submitNew={submitNew} />
                 </Route>
                 <Route exact path="/fridges/:id/edit">
                     <EditFridgeForm fridge={selectedFridge}/>
@@ -23,11 +27,7 @@ function ViewContainer({selectedFridge}) {
                     <FridgeDetail fridge={selectedFridge}/>
                 </Route>
             </Switch>
-            <button>
-                <Link to="/fridges/new">
-                    NEW    
-                </Link>
-            </button>
+            
         </div>
     ) 
 }
