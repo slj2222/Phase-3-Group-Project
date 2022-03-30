@@ -10,11 +10,19 @@ function App() {
   
   const [fridges, setFridges] = useState([])
   const [selectedFridge, setSelectedFridge] = useState()
+  const [user, setUser] = useState()
 
   useEffect(() => {
       fetch("http://localhost:9292/fridges")
         .then(res => res.json())
         .then(data => setFridges(data))
+      
+      fetch("http://localhost:9292/users/1")
+        .then(res => res.json())
+        .then(data => {
+          console.log("!!!!!!!!", data)
+          setUser(data)
+        })
     }, [])
   
   function getFridge(id){
@@ -24,9 +32,9 @@ function App() {
   return (
     <div>
       <div>
-        <Header />
+        <Header user={user}/>
       </div>
-      <div>
+      <div className="main">
         <FridgeContainer fridges={fridges} handleClick={setSelectedFridge}/>
         <ViewContainer selectedFridge={selectedFridge}/>
       </div>

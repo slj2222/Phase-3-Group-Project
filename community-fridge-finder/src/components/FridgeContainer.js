@@ -21,7 +21,7 @@ function FridgeContainer({handleClick}) {
 
 
     return (
-        <div>
+        <div className="fridge-list">
             <h2>select a fridge</h2>
             {mapFridges}
         </div>

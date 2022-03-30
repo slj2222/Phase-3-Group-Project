@@ -1,8 +1,11 @@
 import React from "react"
 
-function Header(){
+function Header({user}){
     return (
-        <h1>Community Fridge Finder</h1>
+        <header className="header">
+            <h1>Community Fridge Finder</h1>
+            {user && <h4>Welcome, {user.first_name}</h4>}
+        </header>
     )
 }
 
