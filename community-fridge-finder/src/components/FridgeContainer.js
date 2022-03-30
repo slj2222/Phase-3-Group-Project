@@ -12,7 +12,6 @@ function FridgeContainer({handleClick}) {
           .then(data => setFridges(data))
       }, [])
     
-      console.log(fridges)
       
       const mapFridges = fridges.map(fridge => {
           return <FridgeCard key={fridge.id} fridge={fridge} handleClick={handleClick}/>

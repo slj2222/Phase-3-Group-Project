@@ -20,13 +20,37 @@ function App() {
       fetch("http://localhost:9292/users/1")
         .then(res => res.json())
         .then(data => {
-          console.log("!!!!!!!!", data)
           setUser(data)
         })
     }, [])
   
   function getFridge(id){
     fridges.find(fridge => fridge.id === id)
+  }
+
+  function addNewFood(food, fridge_id){
+    fetch("http://localhost:9292/foods", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: food.name,
+        quantity: food.quantity,
+        fridge_id: fridge_id,
+        user_id: user.id
+      })
+    })
+    .then(res => res.json())
+    .then(body => {
+      setSelectedFridge(seletctedFridge => ({...selectedFridge, foods: [...selectedFridge.foods, body]}))
+      setFridges(fridges.map(fridge => {
+        if(fridge.id === body.fridge_id){
+          const newFoods = [...fridge.foods, body];
+          return {...fridge, foods: newFoods}
+        }
+        return fridge
+      }))
+    })
+
   }
 
   return (
@@ -36,7 +60,7 @@ function App() {
       </div>
       <div className="main">
         <FridgeContainer fridges={fridges} handleClick={setSelectedFridge}/>
-        <ViewContainer selectedFridge={selectedFridge}/>
+        <ViewContainer selectedFridge={selectedFridge} addNewFood={addNewFood}/>
       </div>
     </div>
     
