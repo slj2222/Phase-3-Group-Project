@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FridgeCard from "./FridgeCard";
-import ViewContainer from './ViewContainer'
+// import ViewContainer from './ViewContainer'
+import { Link } from "react-router-dom"
 
 function FridgeContainer({handleClick}) {
 
@@ -18,12 +19,18 @@ function FridgeContainer({handleClick}) {
           return <FridgeCard key={fridge.id} fridge={fridge} handleClick={handleClick}/>
       })
       
+      
 
 
     return (
         <div className="fridge-list">
             <h2>select a fridge</h2>
             {mapFridges}
+            <button>
+                <Link to="/fridges/new">
+                    NEW    
+                </Link>
+            </button>
         </div>
         
     )

@@ -11,12 +11,7 @@ function FridgeCard({fridge, handleClick}) {
             >
                 see more!
             </Link>
-            <Link
-                to={`/fridges/${fridge.id}/edit`}
-            >
-                EDIT
-            </Link>
-
+        
         </div>
         
     )

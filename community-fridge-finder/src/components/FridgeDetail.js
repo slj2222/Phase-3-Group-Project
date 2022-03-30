@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 export default function FridgeDetail({fridge}) {
   const params = useParams();
@@ -11,6 +11,13 @@ export default function FridgeDetail({fridge}) {
                 {fridge.foods.map(food =>{
                     return <p>{food.name}</p>
                 })}
+              <button>
+                <Link
+                  to={`/fridges/${fridge.id}/edit`}
+                >
+                  EDIT
+                </Link>
+              </button>        
             </div>
         : <p>GO CLICK ON SOMETHING</p>
         }
