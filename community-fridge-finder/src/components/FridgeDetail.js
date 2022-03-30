@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FoodItem from './FoodItem';
 
+
 export default function FridgeDetail({fridge, addNewFood}) {
   
   const params = useParams();
@@ -48,6 +49,13 @@ export default function FridgeDetail({fridge, addNewFood}) {
                     <input type="submit" value="Add food"/>
                   </form>
                 }
+              <button>
+                <Link
+                  to={`/fridges/${fridge.id}/edit`}
+                >
+                  EDIT
+                </Link>
+              </button>        
             </div>
         : <p>GO CLICK ON SOMETHING</p>
         }
