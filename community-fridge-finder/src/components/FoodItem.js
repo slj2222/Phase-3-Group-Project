@@ -3,10 +3,9 @@ import React from "react"
 function FoodItem({food}) {
     // console.log(food)
     return (
-        <div>
-            <h3>{food.name}</h3>
-            <h4>{food.quantity}</h4>
-
+        <div className="food-item">
+            <div className="food-name">{food.name}</div>
+            <div className="food-quantity">{food.quantity}</div>
         </div>
     )
 
