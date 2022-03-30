@@ -4,7 +4,7 @@ import FridgeDetail from './FridgeDetail';
 import NewFridgeForm from './NewFridgeForm';
 import EditFridgeForm from './EditFridgeForm';
 
-function ViewContainer({selectedFridge, addNewFood}) {
+function ViewContainer({selectedFridge, addNewFood, submitNew}) {
     const params = useParams();
 
     return (

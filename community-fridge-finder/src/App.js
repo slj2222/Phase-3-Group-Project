@@ -76,7 +76,7 @@ function App() {
       </div>
       <div className="main">
         <FridgeContainer fridges={fridges} handleClick={setSelectedFridge}/>
-        <ViewContainer selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={subimtNew}/>
+        <ViewContainer selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew}/>
 
       </div>
     </div>
