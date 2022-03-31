@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import FoodItem from './FoodItem';
 
 
-export default function FridgeDetail({ removeFood, fridge, addNewFood}) {
+export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood}) {
   
   const params = useParams();
   const [showForm, setShowForm] = useState(false)
@@ -25,7 +25,7 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood}) {
             <div>
                 <h1>{fridge.location}</h1>
                 {fridge.foods.map(food =>{
-                  return <FoodItem removeFood={removeFood} food={food} key={food.id} />
+                  return <FoodItem editFood={editFood} removeFood={removeFood} food={food} key={food.id} />
                 })}
                 {!showForm && <button onClick={() => setShowForm(true)}>Add Food</button>}
                 {showForm && 

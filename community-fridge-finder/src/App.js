@@ -13,45 +13,45 @@ function App() {
   const [user, setUser] = useState()
 
   useEffect(() => {
-      fetch("http://localhost:9292/fridges")
-        .then(res => res.json())
-        .then(data => setFridges(data))
-      
-      fetch("http://localhost:9292/users/1")
-        .then(res => res.json())
-        .then(data => {
-          setUser(data)
-        })
-    }, [])
-  
-  function getFridge(id){
+    fetch("http://localhost:9292/fridges")
+      .then(res => res.json())
+      .then(data => setFridges(data))
+
+    fetch("http://localhost:9292/users/1")
+      .then(res => res.json())
+      .then(data => {
+        setUser(data)
+      })
+  }, [])
+
+  function getFridge(id) {
     fridges.find(fridge => fridge.id === id)
   }
 
   function removeFood(foodId) {
     fetch(`http://localhost:9292/foods/${foodId}`, {
       method: "DELETE",
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(res => res.json())
-    .then(data => {
-      const removedFoodList = selectedFridge.foods.filter(food => {
-        return food.id !== data.id 
+      .then(res => res.json())
+      .then(data => {
+        const removedFoodList = selectedFridge.foods.filter(food => {
+          return food.id !== data.id
+        })
+        setSelectedFridge(selectedFridge => ({ ...selectedFridge, foods: removedFoodList }))
+        setFridges(fridges.map(fridge => {
+          if (fridge.id === data.fridge_id) {
+            return { ...fridge, foods: removedFoodList }
+          }
+          return fridge
+        }))
       })
-      setSelectedFridge(selectedFridge => ({...selectedFridge, foods: removedFoodList}))
-      setFridges(fridges.map(fridge => {
-        if(fridge.id === data.fridge_id){
-          return {...fridge, foods: removedFoodList}
-        }
-        return fridge
-      }))
-    })
   }
 
-  function addNewFood(food, fridge_id){
+  function addNewFood(food, fridge_id) {
     fetch("http://localhost:9292/foods", {
       method: "POST",
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: food.name,
         quantity: food.quantity,
@@ -59,17 +59,17 @@ function App() {
         user_id: user.id
       })
     })
-    .then(res => res.json())
-    .then(body => {
-      setSelectedFridge(selectedFridge => ({...selectedFridge, foods: [...selectedFridge.foods, body]}))
-      setFridges(fridges.map(fridge => {
-        if(fridge.id === body.fridge_id){
-          const newFoods = [...fridge.foods, body];
-          return {...fridge, foods: newFoods}
-        }
-        return fridge
-      }))
-    })
+      .then(res => res.json())
+      .then(body => {
+        setSelectedFridge(selectedFridge => ({ ...selectedFridge, foods: [...selectedFridge.foods, body] }))
+        setFridges(fridges.map(fridge => {
+          if (fridge.id === body.fridge_id) {
+            const newFoods = [...fridge.foods, body];
+            return { ...fridge, foods: newFoods }
+          }
+          return fridge
+        }))
+      })
 
   }
 
@@ -77,26 +77,58 @@ function App() {
     fetch("http://localhost:9292/fridges", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        location: newFridgeLocation, 
+      body: JSON.stringify({
+        location: newFridgeLocation,
         user_id: user.id
       })
     }
     )
-    .then(res => res.json())
-    .then(data => setFridges(fridges => [...fridges, data]))
+      .then(res => res.json())
+      .then(data => setFridges(fridges => [...fridges, data]))
   }
+
+  function editFood(food, food_id) {
+    fetch(`http://localhost:9292/foods/${food_id}`, {
+      method: "PATCH",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: food.name,
+        quantity: food.quantity
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const editFoodList = selectedFridge.foods.map(food => {
+          if (food.id === food_id) {
+            return data
+          } else {
+            return food
+          }
+        })
+        setSelectedFridge(selectedFridge => ({ ...selectedFridge, foods: editFoodList }))
+        setFridges(fridges.map(fridge => {
+          if (fridge.id === data.fridge_id) {
+            return { ...fridge, foods: editFoodList }
+          }
+          else {
+            return fridge
+          }
+        }))
+      })
+  }
+
 
   function deleteFridge(fridgeId) {
     fetch(`http://localhost:9292/fridges/${fridgeId}`, {
       method: "DELETE",
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(res => res.json())
-    .then(data => {
-      setFridges(fridges.filter(fridge => fridgeId !== fridge.id))
+      .then(res => res.json())
+      .then(data => {
+        setFridges(fridges.filter(fridge => fridgeId !== fridge.id))
+      }
+      )
   }
-    )}
 
   return (
     <div>
@@ -104,8 +136,8 @@ function App() {
         <Header user={user} />
       </div>
       <div className="main">
-        <FridgeContainer fridges={fridges} handleClick={setSelectedFridge} deleteFridge={deleteFridge}/>
-        <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew}/>
+        <FridgeContainer fridges={fridges} handleClick={setSelectedFridge} deleteFridge={deleteFridge} />
+        <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew} editFood={editFood} />
 
       </div>
     </div>
