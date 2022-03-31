@@ -28,6 +28,26 @@ function App() {
     fridges.find(fridge => fridge.id === id)
   }
 
+  function removeFood(foodId) {
+    fetch(`http://localhost:9292/foods/${foodId}`, {
+      method: "DELETE",
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(res => res.json())
+    .then(data => {
+      const removedFoodList = selectedFridge.foods.filter(food => {
+        return food.id !== data.id 
+      })
+      setSelectedFridge(selectedFridge => ({...selectedFridge, foods: removedFoodList}))
+      setFridges(fridges.map(fridge => {
+        if(fridge.id === data.fridge_id){
+          return {...fridge, foods: removedFoodList}
+        }
+        return fridge
+      }))
+    })
+  }
+
   function addNewFood(food, fridge_id){
     fetch("http://localhost:9292/foods", {
       method: "POST",
@@ -76,7 +96,7 @@ function App() {
       </div>
       <div className="main">
         <FridgeContainer fridges={fridges} handleClick={setSelectedFridge}/>
-        <ViewContainer selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew}/>
+        <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew}/>
 
       </div>
     </div>
