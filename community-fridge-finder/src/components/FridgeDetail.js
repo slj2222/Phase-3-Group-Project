@@ -14,7 +14,9 @@ export default function FridgeDetail({fridge, addNewFood}) {
 
   function handleNewFoodSubmit(e){
     e.preventDefault();
+    setShowForm(false)
     addNewFood(newFood, fridge.id)
+    setNewFood({name: '', quantity: 1});
   }
 
   return (

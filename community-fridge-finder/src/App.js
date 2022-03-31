@@ -41,7 +41,7 @@ function App() {
     })
     .then(res => res.json())
     .then(body => {
-      setSelectedFridge(seletctedFridge => ({...selectedFridge, foods: [...selectedFridge.foods, body]}))
+      setSelectedFridge(selectedFridge => ({...selectedFridge, foods: [...selectedFridge.foods, body]}))
       setFridges(fridges.map(fridge => {
         if(fridge.id === body.fridge_id){
           const newFoods = [...fridge.foods, body];
@@ -64,7 +64,7 @@ function App() {
     }
     )
     .then(res => res.json())
-    .then(data => setFridges([...fridges, data]))
+    .then(data => setFridges(fridges => [...fridges, data]))
   }
 
 

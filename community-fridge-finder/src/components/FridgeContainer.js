@@ -3,15 +3,8 @@ import FridgeCard from "./FridgeCard";
 // import ViewContainer from './ViewContainer'
 import { Link } from "react-router-dom"
 
-function FridgeContainer({handleClick}) {
+function FridgeContainer({fridges, handleClick}) {
 
-    const [fridges, setFridges] = useState([])
-
-    useEffect(() => {
-        fetch("http://localhost:9292/fridges")
-          .then(res => res.json())
-          .then(data => setFridges(data))
-      }, [])
     
       
       const mapFridges = fridges.map(fridge => {
