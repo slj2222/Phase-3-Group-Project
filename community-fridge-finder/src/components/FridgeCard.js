@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-function FridgeCard({fridge, handleClick}) {
+function FridgeCard({fridge, handleClick, deleteFridge}) {
 
     return (
         <div className="fridge-card">
@@ -12,6 +12,7 @@ function FridgeCard({fridge, handleClick}) {
                 >
                     <span>s</span><span>e</span><span>e</span> <span>m</span><span>o</span><span>r</span><span>e</span><span>!</span>
                 </Link>
+                <button onClick={() => deleteFridge(fridge.id)}>delete</button>
             </div>
         </div>
         

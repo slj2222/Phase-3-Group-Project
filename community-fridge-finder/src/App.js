@@ -87,7 +87,16 @@ function App() {
     .then(data => setFridges(fridges => [...fridges, data]))
   }
 
-
+  function deleteFridge(fridgeId) {
+    fetch(`http://localhost:9292/fridges/${fridgeId}`, {
+      method: "DELETE",
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(res => res.json())
+    .then(data => {
+      setFridges(fridges.filter(fridge => fridgeId !== fridge.id))
+  }
+    )}
 
   return (
     <div>
@@ -95,7 +104,7 @@ function App() {
         <Header user={user} />
       </div>
       <div className="main">
-        <FridgeContainer fridges={fridges} handleClick={setSelectedFridge}/>
+        <FridgeContainer fridges={fridges} handleClick={setSelectedFridge} deleteFridge={deleteFridge}/>
         <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew}/>
 
       </div>

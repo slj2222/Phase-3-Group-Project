@@ -8,6 +8,7 @@ export default function NewFridgeForm({ submitNew }) {
   function handleSubmit(e) {
     e.preventDefault()
     submitNew(value)
+    setValue('')
   }
 
 
@@ -15,7 +16,7 @@ export default function NewFridgeForm({ submitNew }) {
     <div>
         <form onSubmit={handleSubmit}>
             <label htmlFor="location">Fridge Location: </label>
-            <input onChange={(e) => setValue(e.target.value)} type="text" id="location" name="location" />
+            <input onChange={(e) => setValue(e.target.value)} value={value} type="text" id="location" name="location" />
             <input type="submit"/>
         </form>
     </div>
