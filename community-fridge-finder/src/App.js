@@ -87,18 +87,28 @@ function App() {
       .then(data => setFridges(fridges => [...fridges, data]))
   }
 
-  function editFridgeLocation(updatedLocation) {
-    fetch("http://localhost:9292/fridges", {
+  function editFridgeLocation(updatedLocation, fridge_id) {
+    fetch(`http://localhost:9292/fridges/${fridge_id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         location: updatedLocation,
-        user_id: user.id
       })
     }
     )
       .then(res => res.json())
-      .then(data => setFridges(fridges => [...fridges, data]))
+      .then(data => {
+        console.log(data)
+        setFridges(fridges.map(fridge => {
+        if (fridge.id === data.id) {
+          return { ...fridge, location: updatedLocation }
+        }
+        else {
+          return fridge
+        }
+      }))
+      setSelectedFridge(data)
+    })
   }
 
   function editFood(food, food_id) {

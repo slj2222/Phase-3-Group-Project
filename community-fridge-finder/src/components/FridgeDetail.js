@@ -23,7 +23,7 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood,
   function handleUpdateLocation(e){
     e.preventDefault()
     setEditLocation(false)
-    editFridgeLocation(updatedLocation)
+    editFridgeLocation(updatedLocation, fridge.id)
     console.log(`New location: ${fridge.location}`) 
     setUpdatedLocation("")
   }
@@ -70,7 +70,7 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood,
                         type="text" 
                         id="name" 
                         name="name" 
-                        // value={} 
+                        value={updatedLocation} 
                         />
                     </label>  
                   </form>
