@@ -87,6 +87,30 @@ function App() {
       .then(data => setFridges(fridges => [...fridges, data]))
   }
 
+  function editFridgeLocation(updatedLocation, fridge_id) {
+    fetch(`http://localhost:9292/fridges/${fridge_id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        location: updatedLocation,
+      })
+    }
+    )
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setFridges(fridges.map(fridge => {
+        if (fridge.id === data.id) {
+          return { ...fridge, location: updatedLocation }
+        }
+        else {
+          return fridge
+        }
+      }))
+      setSelectedFridge(data)
+    })
+  }
+
   function editFood(food, food_id) {
     fetch(`http://localhost:9292/foods/${food_id}`, {
       method: "PATCH",
@@ -131,13 +155,13 @@ function App() {
   }
 
   return (
-    <div>
+    <div id="encloses-main">
       <div>
         <Header user={user} />
       </div>
       <div className="main">
         <FridgeContainer fridges={fridges} handleClick={setSelectedFridge} deleteFridge={deleteFridge} />
-        <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew} editFood={editFood} />
+        <ViewContainer removeFood={removeFood} selectedFridge={selectedFridge} addNewFood={addNewFood} submitNew={submitNew} editFood={editFood} editFridgeLocation={editFridgeLocation} />
 
       </div>
     </div>
