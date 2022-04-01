@@ -16,9 +16,10 @@ function FoodItem({ food, removeFood, editFood }) {
 
     return (
         <div className="food-item">
-            <div className="food-name">{food.name}</div>
-            <div className="food-quantity">{food.quantity}</div>
-            {!showEdit && <button onClick={() => setShowEdit(true)}>Edit Food</button>}
+            <span className="food-quantity">{food.quantity} </span>
+            <span className="food-name">{food.name} </span>
+            <br/>
+            {!showEdit && <button className="edit-food-button" onClick={() => setShowEdit(true)}>edit</button>}
                 {showEdit && 
                   <form onSubmit={e => handleEditSubmit(e)}>
                     <label htmlFor="name">update food item:
@@ -42,6 +43,7 @@ function FoodItem({ food, removeFood, editFood }) {
                     <input type="submit" value="Update food"/>
                   </form>
                 }
+            <span> </span>
             <button onClick={() => removeFood(food.id)}>delete</button>
         </div>
     )

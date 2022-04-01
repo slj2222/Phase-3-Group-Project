@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import FoodItem from './FoodItem';
 
-
-export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood}) {
+export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood, editFridgeLocation }) {
   
   const params = useParams();
   const [showForm, setShowForm] = useState(false)
@@ -11,6 +10,8 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood}
     name: '',
     quantity: 1,
   })
+  const [editLocation, setEditLocation] = useState(false)
+  const [updatedLocation, setUpdatedLocation] = useState("")
 
   function handleNewFoodSubmit(e){
     e.preventDefault();
@@ -19,26 +20,25 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood}
     setNewFood({name: '', quantity: 1});
   }
 
+  function handleUpdateLocation(e){
+    e.preventDefault()
+    setEditLocation(false)
+    editFridgeLocation(updatedLocation)
+    console.log(`New location: ${fridge.location}`) 
+    setUpdatedLocation("")
+  }
+
   return (
     <div>
         {fridge ?
-            <div>
+            <div className="view-display-box">
                 <h1>{fridge.location}</h1>
-                {fridge.foods.map(food =>{
-                  return <FoodItem editFood={editFood} removeFood={removeFood} food={food} key={food.id} />
-                })}
+                <div>
                 {!showForm && <button onClick={() => setShowForm(true)}>Add Food</button>}
                 {showForm && 
                   <form onSubmit={e => handleNewFoodSubmit(e)}>
-                    <label htmlFor="name">What did you drop off:
-                      <input 
-                        onChange={e => setNewFood({...newFood, name: e.target.value})}
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value={newFood.name}/>
-                    </label>
-                    <label htmlFor="quantity">
+                    <label htmlFor="quantity">What did you drop off?
+                    <br/> 
                       <input 
                         type="number"
                         name="quantity"
@@ -48,18 +48,38 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood}
                         min={1}
                       />
                     </label>
+                    <label htmlFor="name">
+                      <input 
+                        onChange={e => setNewFood({...newFood, name: e.target.value})}
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        placeholder="e.g. slices of pepperoni pizza"
+                        value={newFood.name}/>
+                    </label>
                     <input type="submit" value="Add food"/>
                   </form>
                 }
-              <button>
-                <Link
-                  to={`/fridges/${fridge.id}/edit`}
-                >
-                  EDIT
-                </Link>
-              </button>        
+                </div>
+              {!editLocation && <button onClick={() => setEditLocation(true)}>Edit fridge location</button>}
+                {editLocation && 
+                  <form onSubmit={e => handleUpdateLocation(e)}>
+                    <label htmlFor="name">Rename fridge:
+                      <input 
+                        onChange={e => setUpdatedLocation(e.target.value)}
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        // value={} 
+                        />
+                    </label>  
+                  </form>
+                  }
+                {fridge.foods.map(food =>{
+                return <FoodItem editFood={editFood} removeFood={removeFood} food={food} key={food.id} />
+              })}    
             </div>
-        : <p>GO CLICK ON SOMETHING</p>
+        : <p className="view-container-message">Select a fridge to show its contents</p>
         }
 
     </div>
