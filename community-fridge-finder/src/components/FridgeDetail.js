@@ -33,7 +33,7 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood,
         {fridge ?
             <div className="view-display-box">
                 <h1>{fridge.location}</h1>
-                <div>
+                <div id="fridge-detail-button-box">
                 {!showForm && <button onClick={() => setShowForm(true)}>Add Food</button>}
                 {showForm && 
                   <form onSubmit={e => handleNewFoodSubmit(e)}>
@@ -60,21 +60,21 @@ export default function FridgeDetail({ removeFood, fridge, addNewFood, editFood,
                     <input type="submit" value="Add food"/>
                   </form>
                 }
-                </div>
-              {!editLocation && <button onClick={() => setEditLocation(true)}>Edit fridge location</button>}
-                {editLocation && 
-                  <form onSubmit={e => handleUpdateLocation(e)}>
-                    <label htmlFor="name">Rename fridge:
-                      <input 
-                        onChange={e => setUpdatedLocation(e.target.value)}
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value={updatedLocation} 
-                        />
-                    </label>  
-                  </form>
-                  }
+                  {!editLocation && <button onClick={() => setEditLocation(true)}>Edit fridge location</button>}
+                    {editLocation && 
+                      <form onSubmit={e => handleUpdateLocation(e)}>
+                        <label htmlFor="name">Rename fridge:
+                          <input 
+                            onChange={e => setUpdatedLocation(e.target.value)}
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            value={updatedLocation} 
+                            />
+                        </label>  
+                      </form>
+                      }
+                  </div>
                 {fridge.foods.map(food =>{
                 return <FoodItem editFood={editFood} removeFood={removeFood} food={food} key={food.id} />
               })}    
